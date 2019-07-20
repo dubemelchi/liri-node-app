@@ -66,6 +66,27 @@ var getSpotify = function(songName) {
  );
 };
 
+var getBands = function(artist) {
+ var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+
+ axios.get(queryURL).then(
+  function(response) {
+   var jsonData = response.data;
+
+   if (!jsonData.length) {
+    log("NO results found for " + artisit);
+    return;
+   }
+
+   log("upcoming concerts for " + artist + ":");
+
+   for (var i = 0; i < jsonData.length; i++) {
+    
+   }
+  }
+ )
+}
+
 
 
 
