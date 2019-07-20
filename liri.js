@@ -1,4 +1,7 @@
 
+const log = console.log;
+
+
 // dotenv is the module that will load the api id and secret from the .env file.
 require("dotenv").config();
 
@@ -11,7 +14,7 @@ var mySpotify = require("node-spotify-api");
 var myKeys = require("./keys");
 
 // check api keys imported correctly.
-console.log(myKeys);
+log(myKeys);
 
 // variable importing the axios npm package.
 var axios = require("axios");
@@ -24,6 +27,44 @@ var fs = require("fs");
 
 // var initializing the spotify api.
 var spotify = new mySpotify(keys.spotify);
+
+// function to retrieve artist name.
+var artistName = function(artist) {
+ return artist.name;
+};
+
+// function to run the search on spotify.
+var getSpotify = function(songName) {
+ if (songName === undefined) {
+  songName = "What's my age again";
+ }
+
+ spotify.search(
+  {
+   type: "track",
+   query: songName
+  },
+  function(err, data) {
+   if (err) {
+    log("Error occurred: " + err);
+    return;
+   }
+
+   var songs = data.tracks.items;
+
+   for (var i = 0; i < songs.length; i++) {
+    log(i);
+    log("artist(s): " + songs[i].artists.map(artistName));
+    log("song name: " + songs[i].name);
+    log("preview song: " + songs[i].preview_url);
+    log("album: " + songs[i].album.name);
+    log("-------")
+
+   }
+  }
+
+ );
+};
 
 
 
