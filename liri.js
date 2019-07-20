@@ -26,7 +26,7 @@ var moment = require("moment");
 var fs = require("fs");
 
 // var initializing the spotify api.
-var spotify = new mySpotify(mykeys.spotify);
+var spotify = new mySpotify(myKeys.spotify);
 
 // function to retrieve artist name.
 var artistName = function(artist) {
