@@ -81,11 +81,88 @@ var getBands = function(artist) {
    log("upcoming concerts for " + artist + ":");
 
    for (var i = 0; i < jsonData.length; i++) {
-    
+    var show = jsonData[i];
+
+    log(
+     show.venue.city + "," + (show.venue.region || show.venue.country) + " at " + show.venue.name + " " + moment(show.datatime).format("MM/DD/YYYY")
+    );
    }
   }
- )
-}
+ );
+};
+
+// function for the movie search
+var getMovie = function (movieName) {
+ if (movieName === undefined) {
+  movieName = "Inception";
+ }
+
+ var urlHit = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=full&tomatoes=true&apikey=trilogy";
+
+ axios.get(urlHit).then(
+  function(response) {
+   var jsonData = respnse.data;
+
+   log("Title: " + jsonData.Title);
+   log("Year: " + jsonData.Year);
+   log("Rated: " + jsonData.Rated);
+   log("IMDB Rating: " + jsonData.imdbRating);
+   log("Country: " + jsonData.Country);
+   log("Language: " + jsonData.Language);
+   log("Plot: " + jsonData.Plot);
+   log("Actors: " + jsonData.Actors;
+   log("Rotten Tomatoes Rating: " + jsonData.Ratings[1].Value);
+  }
+ );
+};
+
+// ?????
+var doSomething = function() {
+ fs.readFile("random.txt", "utf8", function(error, data) {
+  log(data);
+
+  var dataArr = data.split(",");
+
+  if (dataArr.length === 2) {
+   pick(dataArr[0], dataArr[1]);
+  }else if (dataArr.length === 1) {
+   pick(dataArr[0]);
+  }
+ });
+};
+
+// ???
+var pick = function(caseData, functionData) {
+ switch (caseData) {
+  case "concert-this":
+   getBands(functionData);
+   break;
+  
+  case "spotify-this-song":
+   getSpotify(functionData);
+   break;
+
+  case "movie_this":
+   getMovie(functionData);
+   break;
+
+  case "do-what-it-says":
+   doSomething();
+   break;
+
+  default:
+   log("LIRI doesn't know that");
+ }
+};
+
+// function which takes in the command line argvs.
+var runThis = function(argOne, argTwo) {
+ pick(argOne, argTwo);
+};
+
+runThis(process.argv[2], process.argv.slice(3).join(" "));
+
+
 
 
 
