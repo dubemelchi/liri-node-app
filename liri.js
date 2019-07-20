@@ -110,7 +110,7 @@ var getMovie = function (movieName) {
    log("Country: " + jsonData.Country);
    log("Language: " + jsonData.Language);
    log("Plot: " + jsonData.Plot);
-   log("Actors: " + jsonData.Actors;
+   log("Actors: " + jsonData.Actors);
    log("Rotten Tomatoes Rating: " + jsonData.Ratings[1].Value);
   }
  );
